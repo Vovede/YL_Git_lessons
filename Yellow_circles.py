@@ -12,23 +12,20 @@ class Circles(QWidget):
         super().__init__()
         uic.loadUi("UI.ui", self)
 
-        self.rads = [i for i in range(50, 100)]
-        self.pos = [(x, y) for x in range(400) for y in range(400)]
-
         self.circles = []
         self.pushButton.clicked.connect(self.spawnCircles)
 
     def spawnCircles(self):
         for _ in range(5):
-            radius = random.choice(self.rads)
-            position = random.choice(self.pos)
+            radius = random.randint(50, 100)
+            position = [random.randint(0, 400), random.randint(0, 400)]
             self.circles.append((position[0], position[1], radius))
         self.update()
 
     def paintEvent(self, event):
         qp = QPainter(self)
         qp.setPen(QColor(255, 255, 0))
-        qp.setBrush(QColor(255, 255, 0, 100))
+        qp.setBrush(QColor(255, 255, 0, 255))
 
         for x, y, radius in self.circles:
             qp.drawEllipse(QRect(x, y, radius, radius))
